@@ -1,7 +1,7 @@
 public class split {
     public static boolean get_hu_info(int[] hand_cards, int curCard, int gui_index) {
         int[] cards = new int[34];
-		System.arraycopy(hand_cards, 0, cards, 0, 34);
+        System.arraycopy(hand_cards, 0, cards, 0, 34);
 
         if (curCard < 34) {
             cards[curCard]++;
@@ -164,63 +164,63 @@ public class split {
         int c4 = (n % 10000) / 1000;
 
         boolean choose_ke = true;
-		if (c1 != 0) {
-			if (c1 == 1) {
-				// 刻子
-				if (c2 != 0 && c2 != 1) {
-					if (c2 == 2) {
-						if (c3 == 2) {
-							if (c4 == 2) choose_ke = false;
-						} else if (c3 == 3) {
-							if (c4 != 2) choose_ke = false;
-						} else {
-							choose_ke = false;
-						}
-					} else if (c2 == 3) {
-						if (c3 != 3) {
-							choose_ke = false;
-						}
-					} else if (c2 == 4) {
-						if (c3 == 2) {
-							if (c4 == 2 || c4 == 3 || c4 == 4) choose_ke = false;
-						}
-						if (c3 == 3) {
-							choose_ke = false;
-						}
-					}
-				}
-			} else if (c1 == 2) {
-				choose_ke = false;
-			} else if (c1 == 3) {
-				if (c2 == 2) {
-					if (c3 == 1 || c3 == 4) {
-						choose_ke = false;
-					} else if (c3 == 2) {
-						if (c4 != 2) choose_ke = false;
-					}
-				}
-				if (c2 == 3) {
-					choose_ke = false;
-				} else if (c2 == 4) {
-					if (c3 == 2) {
-						choose_ke = false;
-					}
-				}
-			} else if (c1 == 4) {
-				if (c2 == 2 && c3 != 2) {
-					choose_ke = false;
-				} else if (c2 == 3) {
-					if (c3 == 0 || c3 == 1 || c3 == 2) {
-						choose_ke = false;
-					}
-				} else if (c2 == 4) {
-					if (c3 == 2) choose_ke = false;
-				}
-			}
-		}  // c1 == 0 全拆刻子
+        if (c1 != 0) {
+            if (c1 == 1) {
+                // 刻子
+                if (c2 != 0 && c2 != 1) {
+                    if (c2 == 2) {
+                        if (c3 == 2) {
+                            if (c4 == 2) choose_ke = false;
+                        } else if (c3 == 3) {
+                            if (c4 != 2) choose_ke = false;
+                        } else {
+                            choose_ke = false;
+                        }
+                    } else if (c2 == 3) {
+                        if (c3 != 3) {
+                            choose_ke = false;
+                        }
+                    } else if (c2 == 4) {
+                        if (c3 == 2) {
+                            if (c4 == 2 || c4 == 3 || c4 == 4) choose_ke = false;
+                        }
+                        if (c3 == 3) {
+                            choose_ke = false;
+                        }
+                    }
+                }
+            } else if (c1 == 2) {
+                choose_ke = false;
+            } else if (c1 == 3) {
+                if (c2 == 2) {
+                    if (c3 == 1 || c3 == 4) {
+                        choose_ke = false;
+                    } else if (c3 == 2) {
+                        if (c4 != 2) choose_ke = false;
+                    }
+                }
+                if (c2 == 3) {
+                    choose_ke = false;
+                } else if (c2 == 4) {
+                    if (c3 == 2) {
+                        choose_ke = false;
+                    }
+                }
+            } else if (c1 == 4) {
+                if (c2 == 2 && c3 != 2) {
+                    choose_ke = false;
+                } else if (c2 == 3) {
+                    if (c3 == 0 || c3 == 1 || c3 == 2) {
+                        choose_ke = false;
+                    }
+                } else if (c2 == 4) {
+                    if (c3 == 2) choose_ke = false;
+                }
+            }
+        }  // c1 == 0 全拆刻子
 
 
-		if (choose_ke) {
+        if (choose_ke) {
             need_gui += 1;
         } else {
             if (c1 < 2) {
