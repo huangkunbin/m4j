@@ -1,5 +1,10 @@
 public class split {
-    public static boolean get_hu_info(int[] hand_cards, int curCard, int gui_index) {
+    public static class HuInfo {
+        public boolean hu;
+        public int eye;
+    }
+
+    public static HuInfo get_hu_info(int[] hand_cards, int curCard, int gui_index) {
         int[] cards = new int[34];
         System.arraycopy(hand_cards, 0, cards, 0, 34);
 
@@ -15,6 +20,11 @@ public class split {
         int[] eye_tbl = new int[34];
         int eye_num = 0;
         int empty = -1;
+
+        HuInfo huInfo = new HuInfo();
+        huInfo.hu = false;
+        huInfo.eye = empty;
+
         for (int i = 0; i < 34; ++i) {
             // 优化手段，三不靠的牌，必做将
             int min = (i / 9) * 9;
@@ -26,7 +36,7 @@ public class split {
                     (i + 1 > max || cards[i + 1] == 0) &&
                     (i + 2 > max || cards[i + 2] == 0)) {
                 if (gui_num < 0) {
-                    return false;
+                    return huInfo;
                 }
                 eye_num = 1;
                 eye_tbl[0] = i;
@@ -42,7 +52,7 @@ public class split {
             eye_tbl[eye_num++] = empty;
         }
 
-        boolean hu = false;
+        boolean hu;
         int[] cache = {0, 0, 0, 0};
         for (int i = 0; i < eye_num; i++) {
             int eye = eye_tbl[i];
@@ -60,6 +70,8 @@ public class split {
                 cards[eye] = n;
             }
             if (hu) {
+                huInfo.hu = true;
+                huInfo.eye = eye;
                 break;
             }
         }
@@ -67,7 +79,8 @@ public class split {
         if (gui_num > 0) {
             cards[gui_index] = gui_num;
         }
-        return hu;
+
+        return huInfo;
     }
 
     public static boolean foreach_eye(int[] cards, int gui_num, int max_gui, int eye_color, int[] cache) {
@@ -264,5 +277,37 @@ public class split {
         }
 
         return need_gui;
+    }
+
+
+    public static boolean check7Dui(int[] hand_cards, int curCard, int gui_index) {
+        int[] cards = new int[34];
+        System.arraycopy(hand_cards, 0, cards, 0, 34);
+
+        if (curCard < 34) {
+            cards[curCard]++;
+        }
+
+        int need = 0;
+        int gui_num = 0;
+
+        if (gui_index < 34) {
+            gui_num = cards[gui_index];
+            cards[gui_index] = 0;
+        }
+        for (int i = 0; i < 34; i++) {
+            if (cards[i] % 2 != 0) {
+                need++;
+            }
+        }
+        if (gui_num > 0) {
+            cards[gui_index] = gui_num;
+        }
+
+        if (need > gui_num) {
+            return false;
+        }
+
+        return true;
     }
 }
